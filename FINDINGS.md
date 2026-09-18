@@ -5,7 +5,7 @@
             so anyone can do '/api/search?q=%2dSELECT * FROM' and it will go through with is an SQL injection vulnerability
 - Impact: Severe
 - Priority: High
-- Proposed solution: 
+- Proposed solution: we used a built in method from the hibernate orm to resolve sql injection issues
 - Verification:
 - Implementation notes:
 
@@ -16,7 +16,7 @@
 - Evidence: There is an N + 1 query issue happening within that process where task.getAssignee().getUsername() and task.getComments().size() will execute a query per each task.
 - Impact: Medium
 - Priority: Medium
-- Proposed solution:
+- Proposed solution: we used lazy loading to avoid eagerloading on each query task by changing the fetchtype to Lazy in the entities
 - Verification:
 - Implementation notes:
 
@@ -27,7 +27,7 @@
 - Evidence: The password is exposed there is no @JsonIgnore or @JsonProperty(access=WRITE_ONLY) so any endpoint response returns the password or even the setup of DTOs
 - Impact: HIGH
 - Priority: HIGH
-- Proposed solution:
+- Proposed solution:aside the use of JsonIgnore and jsonProperty with write access of WriteOnly we also introduce BCrypt for password hashing
 - Verification:
 - Implementation notes:
 
@@ -37,10 +37,10 @@
 
 - Location: Project:25
 - Status: observed 
-- Evidence: Many to one columns are not lazy loaded to avoid N + 1 queries.
+- Evidence:one to many columns are not lazy loaded to avoid N + 1 queries.
 - Impact: HIGH
 - Priority: HIGH
-- Proposed solution:
+- Proposed solution: to avoid eager loading issues
 - Verification:
 - Implementation notes:
 
