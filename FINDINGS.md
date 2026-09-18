@@ -49,29 +49,30 @@
 - Location: AuthController
 - Status: observed 
 - Evidence: No use of DTOs so entities are being used as @RequestBody which is prone to information the client doesnt really need
-
+propose solution: Introduce dtos
 ---
 
 - Location: login
 - Status: observed 
 - Evidence: there are no tokens being returned, no use of BCrypt for password hashing
-
+- Proposed solution: Introduce JWT or cookie sessions depending on the platform and also concepts like Identity token, access token, refresh token, etc
 ---
 
 - Location: TaskItem.tsx:15
 - Status: observed 
 - Evidence: it should be {task.title} and not {task.name}
+- proposed solution: changetask.name to task.title
 
 ---
 
 - Location: TaskItem.tsx:15
 - Status: observed 
 - Evidence: the function will not render due to useState immutability by nature.
-
+- proposed we fixed it by manipulating the derived state and evidence was shown in the UI
 ---
 
 UI INTERACTION
 - When clicking on the complete button of a task item nothing happens, https://fantastic-eureka-7547pgw6pqqf94w-5173.app.github.dev/api/tasks/1/status?status=TODO
-we are getting a 200 OK however nothing is showing on the screen
-- The UI is not mobile responsive.
-- even when i click on reopen and the taskitem card is disabled still the endpoint is triggered and i receive a 200 OK.
+we are getting a 200 OK however nothing is showing on the screen (Fixed at TaskItem:15)
+- The UI is not mobile responsive. (Use Tailwind or css media queries)
+- even when i click on reopen and the taskitem card is disabled still the endpoint is triggered and i receive a 200 OK. (dixed in TaskItem:15)
