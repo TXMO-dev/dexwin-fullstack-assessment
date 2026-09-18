@@ -5,7 +5,7 @@
             so anyone can do '/api/search?q=%2dSELECT * FROM' and it will go through with is an SQL injection vulnerability
 - Impact: Severe
 - Priority: High
-- Proposed solution:
+- Proposed solution: 
 - Verification:
 - Implementation notes:
 

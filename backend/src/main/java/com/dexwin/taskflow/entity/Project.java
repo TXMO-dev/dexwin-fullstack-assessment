@@ -30,7 +30,7 @@ public class Project {
     private User owner;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true, fetch = jakarta.persistence.FetchType.LAZY)
     private List<Task> tasks = new ArrayList<>();
 
     public Project() {

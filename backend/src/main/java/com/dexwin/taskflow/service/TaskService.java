@@ -24,24 +24,22 @@ public class TaskService {
     }
 
     public List<Map<String, Object>> getTaskSummaries(Long projectId) {
-        List<Task> tasks = taskRepository.findByProjectId(projectId);
+        List<Task> tasks = taskRepository.findByProjectIdWithAssigneeAndComments(projectId);
         List<Map<String, Object>> summaries = new ArrayList<>();
         for (Task task : tasks) {
             Map<String, Object> summary = new HashMap<>();
             summary.put("id", task.getId());
             summary.put("title", task.getTitle());
             summary.put("status", task.getStatus());
-            // Pull related data per task as we build the response.
             summary.put("assignee", task.getAssignee() != null ? task.getAssignee().getUsername() : null);
-            summary.put("commentCount", task.getComments().size());
+            summary.put("commentCount", task.getComments() != null ? task.getComments().size() : 0);
             summaries.add(summary);
         }
         return summaries;
     }
 
     public List<Task> search(String query) {
-        String sql = "SELECT * FROM tasks WHERE title LIKE '%" + query + "%'";
-        return entityManager.createNativeQuery(sql, Task.class).getResultList();
+        return taskRepository.findByTitleContainingIgnoreCase(query);
     }
 
     public Task updateStatus(Long taskId, TaskStatus status) {

@@ -30,7 +30,9 @@ public class AuthController {
         String username = credentials.get("username");
         String password = credentials.get("password");
         User user = userRepository.findByUsername(username).orElseThrow();
+        // We will need something like bcrypt to do this
         boolean ok = user.getPassword().equals(password);
+        // we will need to return a token here, but for now we will just return the user id and username
         return Map.of("authenticated", ok, "userId", user.getId(), "username", user.getUsername());
     }
 }
